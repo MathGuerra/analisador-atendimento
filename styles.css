@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+@page {
+    size: A4;
+    margin: 32mm 15mm 20mm 15mm;
+
+    @top-center {
+        content: "Otimização de SLA e Triagem de Atendimento com IA";
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 8pt;
+        color: #64748B;
+        letter-spacing: 0.3px;
+    }
+    @bottom-left {
+        content: "github.com/MathGuerra/analisador-atendimento";
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 7.5pt;
+        color: #94A3B8;
+    }
+    @bottom-center {
+        content: "Página " counter(page) " de " counter(pages);
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 7.5pt;
+        color: #94A3B8;
+    }
+    @bottom-right {
+        content: "Relatório Corporativo";
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 7.5pt;
+        color: #94A3B8;
+    }
+}
+
+@page :first {
+    margin-top: 18mm;
+    @top-center { content: none; }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #1E293B;
+    line-height: 1.55;
+    margin: 0;
+    font-size: 10.5pt;
+}
+
+.header-container {
+    background-color: #0F172A;
+    color: #FFFFFF;
+    padding: 28px 24px;
+    margin: -18mm -15mm 25px -15mm;
+    border-bottom: 5px solid #2563EB;
+    box-shadow: 0 2px 5px rgba(0,0,0,.12);
+}
+
+.header-tag {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #93C5FD;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 20pt;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.header-meta {
+    font-size: 10pt;
+    color: #CBD5E1;
+    line-height: 1.4;
+}
+
+h2 {
+    font-size: 13pt;
+    color: #0F172A;
+    border-left: 4px solid #2563EB;
+    padding-left: 10px;
+    margin-top: 28px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    break-after: avoid;
+}
+
+h3 {
+    font-size: 11pt;
+    color: #334155;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    break-after: avoid;
+}
+
+p {
+    text-align: justify;
+    margin: 0 0 14px 0;
+}
+
+.callout-box {
+    background-color: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-left: 4px solid #2563EB;
+    padding: 14px 18px;
+    margin: 18px 0;
+    border-radius: 8px;
+    break-inside: avoid;
+}
+
+.callout-title {
+    display: inline-block;
+    background-color: #2563EB;
+    color: #FFFFFF;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.kpi-table {
+    width: 100%;
+    margin: 18px 0;
+    border-collapse: separate;
+    border-spacing: 12px 0;
+    break-inside: avoid;
+}
+
+.kpi-cell {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-top: 4px solid #2563EB;
+    padding: 14px;
+    text-align: center;
+    width: 33.33%;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.kpi-label {
+    font-size: 8pt;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.kpi-value {
+    font-size: 24pt;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 6px 0 0 0;
+}
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table.data-table th {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    padding: 12px;
+    text-align: left;
+    font-size: 9.5pt;
+    font-weight: 600;
+}
+
+table.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #E2E8F0;
+    font-size: 9.5pt;
+}
+
+table.data-table tbody tr { break-inside: avoid; }
+table.data-table tbody tr:nth-child(even) { background-color: #F8FAFC; }
+
+/* Componentes Visuais da Nova Arquitetura e Impacto */
+.flow-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    break-inside: avoid;
+}
+
+.flow-step {
+    display: inline-block;
+    background: #1E293B;
+    color: #FFFFFF;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 9pt;
+}
+
+.flow-arrow {
+    display: inline-block;
+    color: #2563EB;
+    font-weight: bold;
+    margin: 0 8px;
+    font-size: 12pt;
+}
+
+.page-break {
+    page-break-before: always;
+}
+
+.status-alert { color: #DC2626; font-weight: 700; }
+.status-warning { color: #D97706; font-weight: 700; }
+.status-ok { color: #16A34A; font-weight: 700; }
+.priority-p1 { color: #DC2626; font-weight: 700; }
+.priority-p2 { color: #D97706; font-weight: 700; }
+.priority-p3 { color: #2563EB; font-weight: 700; }

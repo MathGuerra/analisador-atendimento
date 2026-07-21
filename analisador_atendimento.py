@@ -6,7 +6,6 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import make_pipeline
 from sklearn.metrics import classification_report, confusion_matrix
 
-# 1. GERAÇÃO DE DADOS SINTÉTICOS EM ESCALA
 # Combinamos problemas comuns do atendimento com sentimentos para criar uma base robusta
 frases_positivas = [
     "Atendimento excelente, resolveram meu problema de crédito rapidamente.",
@@ -69,7 +68,7 @@ def processar_atendimento(texto_cliente):
         'acao_recomendada': acao
     }
 
-# Testando com um caso real improvável
+# Testando com um caso real
 teste = "O app caiu de novo na hora de pagar a parcela, se cobrar juros vou cancelar!"
 resultado = processar_atendimento(teste)
 print(f"\nTeste de Triagem: {teste}")

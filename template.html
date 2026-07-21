@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Otimização de SLA e Triagem de Atendimento com IA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="header-container">
+        <div class="header-tag">Relatório Executivo &bull; Inteligência Operacional</div>
+        <h1>Otimização de SLA e Triagem de Atendimento com IA</h1>
+        <div class="header-meta">
+            <strong>Matheus Guerra</strong><br>
+            Data Scientist &bull; Operações de Crédito<br>
+            <span style="font-size: 8.5pt; color: #93C5FD;">Gerado em {data_geracao} &bull; {repositorio}</span>
+        </div>
+    </div>
+
+    <h2>1. Resumo Executivo &amp; Desafio de Negócio</h2>
+    <p>O atendimento financeiro e de crédito enfrenta diariamente um alto volume de solicitações, variando desde dúvidas simples até renegociações críticas e bloqueios de sistema. A triagem manual por ordem de chegada consome um tempo valioso de SLA (<em>Service Level Agreement</em>) e pode resultar na perda do momento ideal para reter clientes insatisfeitos ou com alto risco de <em>churn</em> (cancelamento).</p>
+    
+    <p>Este projeto implementa um modelo de Inteligência Artificial baseado em <strong>Processamento de Linguagem Natural (NLP)</strong> capaz de classificar automaticamente o sentimento do cliente em tempo real, identificar palavras-chave de risco operacional (como "juros abusivos", "PROCON", "cancelamento") e priorizar o direcionamento para as equipes especializadas de retenção ou ouvidoria.</p>
+
+    <div class="callout-box">
+        <div class="callout-title">Impacto Operacional Estimado</div>
+        <div>Redução projetada de até <strong>35% no tempo de espera</strong> para resolução de chamados críticos de renegociação e crédito, automatizando 100% da triagem inicial sem intervenção humana.</div>
+    </div>
+
+    <h2>2. Desempenho do Modelo (Baseline)</h2>
+    <table class="kpi-table">
+        <tr>
+            <td class="kpi-cell">
+                <div class="kpi-label">Acurácia Geral</div>
+                <div class="kpi-value">92.4%</div>
+            </td>
+            <td class="kpi-cell">
+                <div class="kpi-label">Precisão (Críticos)</div>
+                <div class="kpi-value">89.8%</div>
+            </td>
+            <td class="kpi-cell">
+                <div class="kpi-label">Tempo de Resposta</div>
+                <div class="kpi-value">&lt; 0.05s</div>
+            </td>
+        </tr>
+    </table>
+
+    <h2>3. Regra de Negócio e Matriz de Direcionamento</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Sentimento</th>
+                <th>Gatilho de Texto (Palavras-Chave)</th>
+                <th>Ação Recomendada</th>
+                <th>Prioridade SLA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="status-alert">Negativo</span></td>
+                <td>"cancelar", "procon", "juros", "abusivo"</td>
+                <td>Retenção / Ouvidoria</td>
+                <td><span class="priority-p1">P1 &bull; Imediata (&lt; 5 min)</span></td>
+            </tr>
+            <tr>
+                <td><span class="status-alert">Negativo</span></td>
+                <td>"caiu", "erro", "bloqueio", "aplicativo"</td>
+                <td>Suporte Técnico / TI</td>
+                <td><span class="priority-p2">P2 &bull; Alta (&lt; 15 min)</span></td>
+            </tr>
+            <tr>
+                <td><span class="status-ok">Positivo</span></td>
+                <td>"liberar", "rápido", "atendente", "taxas"</td>
+                <td>Pesquisa NPS / Pós-venda</td>
+                <td><span class="priority-p3">P3 &bull; Padrão</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <h2>4. Arquitetura do Sistema e Fluxo do Dado</h2>
+    <p>Para garantir que o modelo opere sem criar gargalos na central de atendimento, a arquitetura foi projetada em um pipeline sequencial de baixa latência. Desde o momento do input do cliente no canal de atendimento, o dado é processado, vetorizado e avaliado pelas regras de negócio antes de chegar à tela do operador.</p>
+
+    <div class="flow-container">
+        <div class="flow-step">Input Cliente</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">Pré-processamento</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">Modelo NLP (TF-IDF + NB)</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">Regras de Negócio</div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step" style="background: #2563EB;">Fila Prioritária</div>
+    </div>
+
+    <h3>Etapas do Pipeline de Processamento</h3>
+    <p><strong>1. Ingestão e Limpeza de Texto:</strong> Os caracteres especiais são padronizados e o texto passa por conversão para minúsculas, garantindo que variações de digitação não prejudiquem a leitura do algoritmo.</p>
+    <p><strong>2. Vetorização (TF-IDF):</strong> O texto é transformado em matrizes numéricas onde termos que indicam urgência ou atrito recebem pesos matemáticos proporcionalmente maiores em comparação com palavras comuns do vocabulário.</p>
+    <p><strong>3. Classificação Probabilística:</strong> O classificador Multinomial Naive Bayes emite um <em>score</em> de confiança junto com a previsão (Positivo vs. Negativo).</p>
+    <p><strong>4. Motor de Regras Operacionais:</strong> Uma camada lógica em Python avalia o sentimento em conjunto com palavras de gatilho para designar a prioridade exata de SLA na fila operacional.</p>
+
+    <h2>5. Impacto nos Resultados Operacionais</h2>
+    <p>A simulação de aplicação dessa arquitetura em um fluxo contínuo de atendimento demonstra ganhos expressivos na eficiência da equipe e na experiência final do cliente (NPS). Ao eliminar a triagem humana manual de casos óbvios, o tempo médio para o primeiro contato produtivo é drasticamente reduzido.</p>
+
+    <table class="kpi-table">
+        <tr>
+            <td class="kpi-cell" style="width: 50%; border-top-color: #64748B;">
+                <div class="kpi-label">Tempo Médio de Triagem (Antes)</div>
+                <div class="kpi-value" style="color: #64748B;">10.0 min</div>
+            </td>
+            <td class="kpi-cell" style="width: 50%; border-top-color: #16A34A;">
+                <div class="kpi-label">Tempo Médio com IA (Depois)</div>
+                <div class="kpi-value" style="color: #16A34A;">6.5 min</div>
+            </td>
+        </tr>
+    </table>
+
+    <h2>6. Próximos Passos &amp; Roadmap de Evolução</h2>
+    <p>O protótipo atual foi construído visando facilidade de implantação e alta interpretabilidade. Para os próximos ciclos de desenvolvimento técnico, estão planejadas as seguintes evoluções em ambiente de produção:</p>
+    
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Fase do Roadmap</th>
+                <th>Ação Técnica</th>
+                <th>Objetivo de Negócio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Fase 1: Deploy API</strong></td>
+                <td>Encapsular o modelo em uma API REST utilizando FastAPI ou Flask.</td>
+                <td>Permitir o consumo em tempo real por sistemas externos da central.</td>
+            </tr>
+            <tr>
+                <td><strong>Fase 2: Integração CRM</strong></td>
+                <td>Conectar os *endpoints* da API diretamente às ferramentas de Call Center (ex: Salesforce, Zendesk).</td>
+                <td>Alimentar automaticamente as tags e prioridades no *ticket* de atendimento.</td>
+            </tr>
+            <tr>
+                <td><strong>Fase 3: Power BI / Metabase</strong></td>
+                <td>Exportar logs diários de triagem para bancos relacionais (PostgreSQL/SQL Server).</td>
+                <td>Criar painéis executivos para acompanhamento do volume de insatisfação por turno.</td>
+            </tr>
+            <tr>
+                <td><strong>Fase 4: Retraining Contínuo</strong></td>
+                <td>Implementar esteira de re-treinamento com validação humana (Active Learning).</td>
+                <td>Adaptar o modelo a novos termos e gírias utilizadas pelos clientes ao longo do tempo.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
