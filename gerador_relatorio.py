@@ -1,6 +1,6 @@
 from datetime import date
 from pathlib import Path
-from weasyprint import HTML
+from xhtml2pdf import pisa
 
 
 def gerar_relatorio(
@@ -8,25 +8,33 @@ def gerar_relatorio(
     repositorio: str = "github.com/MathGuerra/analisador-atendimento",
     data_geracao: str | None = None,
 ) -> str:
-    """Lê o template HTML/CSS separado, injeta os metadados e gera o relatório PDF corporativo."""
+    """Lê o template HTML/CSS, injeta os metadados e gera o relatório PDF compatível com Windows."""
     
     data_geracao = data_geracao or date.today().strftime("%d/%m/%Y")
     
-    # Leitura do arquivo de template
     template_path = Path("template.html")
     if not template_path.exists():
-        raise FileNotFoundError("O arquivo 'template.html' não foi encontrado no diretório atual.")
+        raise FileNotFoundError("O arquivo 'template.html' não foi encontrado.")
         
     template = template_path.read_text(encoding="utf8")
     
-    # Substituição das variáveis dinâmicas no HTML
+    # Injetando as variáveis no template
     html_processado = template.format(
         data_geracao=data_geracao,
         repositorio=repositorio
     )
     
-    # Geração do PDF carregando automaticamente os estilos externos (styles.css)
-    HTML(string=html_processado, base_url=".").write_pdf(caminho_saida)
+    # Convertendo HTML para PDF com xhtml2pdf
+    with open(caminho_saida, "wb") as arquivo_pdf:
+        pisa_status = pisa.CreatePDF(
+            src=html_processado,
+            dest=arquivo_pdf,
+            encoding="utf-8"
+        )
+        
+    if pisa_status.err:
+        raise Exception(f"Erro ao gerar o PDF: {pisa_status.err}")
+        
     return caminho_saida
 
 
