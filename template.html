@@ -28,51 +28,53 @@
     </div>
 
     <h2>2. Desempenho do Modelo (Baseline)</h2>
-    <table class="kpi-table">
+    <table class="kpi-table" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="kpi-cell">
-                <div class="kpi-label">Acurácia Geral</div>
+            <td class="kpi-cell" style="width: 31%;">
+                <div class="kpi-label">ACURÁCIA GERAL</div>
                 <div class="kpi-value">92.4%</div>
             </td>
-            <td class="kpi-cell">
-                <div class="kpi-label">Precisão (Críticos)</div>
+            <td style="width: 3.5%;"></td>
+            <td class="kpi-cell" style="width: 31%;">
+                <div class="kpi-label">PRECISÃO (CRÍTICOS)</div>
                 <div class="kpi-value">89.8%</div>
             </td>
-            <td class="kpi-cell">
-                <div class="kpi-label">Tempo de Resposta</div>
+            <td style="width: 3.5%;"></td>
+            <td class="kpi-cell" style="width: 31%;">
+                <div class="kpi-label">TEMPO DE RESPOSTA</div>
                 <div class="kpi-value">&lt; 0.05s</div>
             </td>
         </tr>
     </table>
 
     <h2>3. Regra de Negócio e Matriz de Direcionamento</h2>
-    <table class="data-table">
+    <table class="data-table" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th>Sentimento</th>
-                <th>Gatilho de Texto (Palavras-Chave)</th>
-                <th>Ação Recomendada</th>
-                <th>Prioridade SLA</th>
+                <th class="table-header" style="width: 15%;">Sentimento</th>
+                <th class="table-header" style="width: 35%;">Gatilho de Texto (Palavras-Chave)</th>
+                <th class="table-header" style="width: 25%;">Ação Recomendada</th>
+                <th class="table-header" style="width: 25%;">Prioridade SLA</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><span class="status-alert">Negativo</span></td>
-                <td>"cancelar", "procon", "juros", "abusivo"</td>
-                <td>Retenção / Ouvidoria</td>
-                <td><span class="priority-p1">P1 &bull; Imediata (&lt; 5 min)</span></td>
+                <td class="table-cell"><span class="status-alert">Negativo</span></td>
+                <td class="table-cell">"cancelar", "procon", "juros", "abusivo"</td>
+                <td class="table-cell">Retenção / Ouvidoria</td>
+                <td class="table-cell"><span class="priority-p1">P1 &bull; Imediata (&lt; 5 min)</span></td>
             </tr>
             <tr>
-                <td><span class="status-alert">Negativo</span></td>
-                <td>"caiu", "erro", "bloqueio", "aplicativo"</td>
-                <td>Suporte Técnico / TI</td>
-                <td><span class="priority-p2">P2 &bull; Alta (&lt; 15 min)</span></td>
+                <td class="table-cell" style="background-color: #F8FAFC;"><span class="status-alert">Negativo</span></td>
+                <td class="table-cell" style="background-color: #F8FAFC;">"caiu", "erro", "bloqueio", "aplicativo"</td>
+                <td class="table-cell" style="background-color: #F8FAFC;">Suporte Técnico / TI</td>
+                <td class="table-cell" style="background-color: #F8FAFC;"><span class="priority-p2">P2 &bull; Alta (&lt; 15 min)</span></td>
             </tr>
             <tr>
-                <td><span class="status-ok">Positivo</span></td>
-                <td>"liberar", "rápido", "atendente", "taxas"</td>
-                <td>Pesquisa NPS / Pós-venda</td>
-                <td><span class="priority-p3">P3 &bull; Padrão</span></td>
+                <td class="table-cell"><span class="status-ok">Positivo</span></td>
+                <td class="table-cell">"liberar", "rápido", "atendente", "taxas"</td>
+                <td class="table-cell">Pesquisa NPS / Pós-venda</td>
+                <td class="table-cell"><span class="priority-p3">P3 &bull; Padrão</span></td>
             </tr>
         </tbody>
     </table>
@@ -83,15 +85,19 @@
     <p>Para garantir que o modelo opere sem criar gargalos na central de atendimento, a arquitetura foi projetada em um pipeline sequencial de baixa latência. Desde o momento do input do cliente no canal de atendimento, o dado é processado, vetorizado e avaliado pelas regras de negócio antes de chegar à tela do operador.</p>
 
     <div class="flow-container">
-        <div class="flow-step">Input Cliente</div>
-        <div class="flow-arrow">&rarr;</div>
-        <div class="flow-step">Pré-processamento</div>
-        <div class="flow-arrow">&rarr;</div>
-        <div class="flow-step">Modelo NLP (TF-IDF + NB)</div>
-        <div class="flow-arrow">&rarr;</div>
-        <div class="flow-step">Regras de Negócio</div>
-        <div class="flow-arrow">&rarr;</div>
-        <div class="flow-step" style="background: #2563EB;">Fila Prioritária</div>
+        <table style="width: 100%; text-align: center;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 15%;"><span class="flow-step">Input Cliente</span></td>
+                <td style="width: 5%;" class="flow-arrow">&rarr;</td>
+                <td style="width: 21%;"><span class="flow-step">Pré-processamento</span></td>
+                <td style="width: 5%;" class="flow-arrow">&rarr;</td>
+                <td style="width: 20%;"><span class="flow-step">Modelo NLP (TF-IDF)</span></td>
+                <td style="width: 5%;" class="flow-arrow">&rarr;</td>
+                <td style="width: 15%;"><span class="flow-step">Regras Negócio</span></td>
+                <td style="width: 5%;" class="flow-arrow">&rarr;</td>
+                <td style="width: 14%;"><span class="flow-step" style="background-color: #2563EB;">Fila SLA</span></td>
+            </tr>
+        </table>
     </div>
 
     <h3>Etapas do Pipeline de Processamento</h3>
@@ -103,14 +109,15 @@
     <h2>5. Impacto nos Resultados Operacionais</h2>
     <p>A simulação de aplicação dessa arquitetura em um fluxo contínuo de atendimento demonstra ganhos expressivos na eficiência da equipe e na experiência final do cliente (NPS). Ao eliminar a triagem humana manual de casos óbvios, o tempo médio para o primeiro contato produtivo é drasticamente reduzido.</p>
 
-    <table class="kpi-table">
+    <table class="kpi-table" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="kpi-cell" style="width: 50%; border-top-color: #64748B;">
-                <div class="kpi-label">Tempo Médio de Triagem (Antes)</div>
+            <td class="kpi-cell" style="width: 48%; border-top: 3px solid #64748B;">
+                <div class="kpi-label">TEMPO MÉDIO DE TRIAGEM (ANTES)</div>
                 <div class="kpi-value" style="color: #64748B;">10.0 min</div>
             </td>
-            <td class="kpi-cell" style="width: 50%; border-top-color: #16A34A;">
-                <div class="kpi-label">Tempo Médio com IA (Depois)</div>
+            <td style="width: 4%;"></td>
+            <td class="kpi-cell" style="width: 48%; border-top: 3px solid #16A34A;">
+                <div class="kpi-label">TEMPO MÉDIO COM IA (DEPOIS)</div>
                 <div class="kpi-value" style="color: #16A34A;">6.5 min</div>
             </td>
         </tr>
@@ -119,34 +126,34 @@
     <h2>6. Próximos Passos &amp; Roadmap de Evolução</h2>
     <p>O protótipo atual foi construído visando facilidade de implantação e alta interpretabilidade. Para os próximos ciclos de desenvolvimento técnico, estão planejadas as seguintes evoluções em ambiente de produção:</p>
     
-    <table class="data-table">
+    <table class="data-table" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th>Fase do Roadmap</th>
-                <th>Ação Técnica</th>
-                <th>Objetivo de Negócio</th>
+                <th class="table-header" style="width: 25%;">Fase do Roadmap</th>
+                <th class="table-header" style="width: 40%;">Ação Técnica</th>
+                <th class="table-header" style="width: 35%;">Objetivo de Negócio</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><strong>Fase 1: Deploy API</strong></td>
-                <td>Encapsular o modelo em uma API REST utilizando FastAPI ou Flask.</td>
-                <td>Permitir o consumo em tempo real por sistemas externos da central.</td>
+                <td class="table-cell"><strong>Fase 1: Deploy API</strong></td>
+                <td class="table-cell">Encapsular o modelo em uma API REST utilizando FastAPI ou Flask.</td>
+                <td class="table-cell">Permitir o consumo em tempo real por sistemas externos da central.</td>
             </tr>
             <tr>
-                <td><strong>Fase 2: Integração CRM</strong></td>
-                <td>Conectar os *endpoints* da API diretamente às ferramentas de Call Center (ex: Salesforce, Zendesk).</td>
-                <td>Alimentar automaticamente as tags e prioridades no *ticket* de atendimento.</td>
+                <td class="table-cell" style="background-color: #F8FAFC;"><strong>Fase 2: Integração CRM</strong></td>
+                <td class="table-cell" style="background-color: #F8FAFC;">Conectar os endpoints da API diretamente às ferramentas de Call Center.</td>
+                <td class="table-cell" style="background-color: #F8FAFC;">Alimentar automaticamente as tags e prioridades no ticket de atendimento.</td>
             </tr>
             <tr>
-                <td><strong>Fase 3: Power BI / Metabase</strong></td>
-                <td>Exportar logs diários de triagem para bancos relacionais (PostgreSQL/SQL Server).</td>
-                <td>Criar painéis executivos para acompanhamento do volume de insatisfação por turno.</td>
+                <td class="table-cell"><strong>Fase 3: Power BI / Metabase</strong></td>
+                <td class="table-cell">Exportar logs diários de triagem para bancos relacionais (PostgreSQL/SQL Server).</td>
+                <td class="table-cell">Criar painéis executivos para acompanhamento do volume de insatisfação por turno.</td>
             </tr>
             <tr>
-                <td><strong>Fase 4: Retraining Contínuo</strong></td>
-                <td>Implementar esteira de re-treinamento com validação humana (Active Learning).</td>
-                <td>Adaptar o modelo a novos termos e gírias utilizadas pelos clientes ao longo do tempo.</td>
+                <td class="table-cell" style="background-color: #F8FAFC;"><strong>Fase 4: Retraining Contínuo</strong></td>
+                <td class="table-cell" style="background-color: #F8FAFC;">Implementar esteira de re-treinamento com validação humana (Active Learning).</td>
+                <td class="table-cell" style="background-color: #F8FAFC;">Adaptar o modelo a novos termos e gírias utilizadas pelos clientes ao longo do tempo.</td>
             </tr>
         </tbody>
     </table>
